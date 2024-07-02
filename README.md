@@ -1,1 +1,1 @@
-a fish selling application that's still under development, be patient for the complete project...:)
+a fish selling application built in Python using Django framework that's still under development, be patient for the complete project... :)
