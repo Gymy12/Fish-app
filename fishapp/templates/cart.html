@@ -20,7 +20,7 @@
                     <p><a href="/product/{{ item.title|slugify }}/{{ product_id }}">{{ item.title }}</a></p>
                 </td>
                 <td>
-                    <input type="number" class="product-qty-{{ product_id }}" value="{{ item.qty }}" style="vertical-align: bottom;" />
+                    <input type="number" class="product-qty-{{ product_id }}" value="{{ item.qty }}" style="vertical-align: bottom;" min="1"/>
                     <button class="btn btn-sm btn-primary update-item" data-item="{{ product_id }}"><i class="fa fa-sync"></i></button>
                     <button class="btn btn-sm btn-danger delete-item" data-item="{{ product_id }}"><i class="fa fa-trash"></i></button>
                 </td>

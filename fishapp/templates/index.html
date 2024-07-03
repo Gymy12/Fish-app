@@ -6,23 +6,23 @@
   <ol class="carousel-indicators">
     {% for banner in banners %}
     {% if forloop.counter == 1  %}
-    <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter}}" class="active"></li>    
+    <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter}}" class="active"></li>
     {% else %}
     <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter}}"></li>
     {% endif %}
     {% endfor %}
   </ol>
-  <div class="carousel-inner"> 
+  <div class="carousel-inner">
     {% for banner in banners %}
     {% if forloop.counter == 1  %}
-    <div class="carousel-item active">   
+    <div class="carousel-item active">
     {% else %}
-    <div class="carousel-item">  
-    {% endif %}     
+    <div class="carousel-item">
+    {% endif %}
     <img src="/media/{{banner.img}}" class="d-block w-100" alt="...">
     </div>
   </div>
-    {% endfor %} 
+    {% endfor %}
 
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -45,7 +45,7 @@
 			  <a href="/product/{{product.slug}}/{{product.id}}"><img src="/media/{{product.productattribute_set.first.image}}" class="card-img-top" alt="{{product.title}}"></a>
 			  <div class="card-body">
 			    <h5 class="card-text"><a href="/product/{{product.slug}}/{{product.id}}">{{product.title}}</a></h5>
-          <h6>Ksh {{product.productattribute_set.first.price}} </h6>
+          <h6>Ksh <span class="product-price-{{ product.id }}">{{product.productattribute_set.first.price}}</span></h6>
 			  </div>
 			  <div class="card-footer">
           {{product.productattribute_set.first.color.title}}
@@ -54,10 +54,8 @@
           <input type="hidden" class="product-id-{{product.id}}" value="{{product.id}}" />
           <input type="hidden" class="product-title-{{product.id}}" value="{{product.title}}" />
 			  	<button class="btn btn-sm btn-primary add-to-cart" data-index="{{product.id}}"><i class="fa fa-shopping-cart"></i></button>
-         
+
 			  	<button class="btn btn-sm btn-danger add-wishlist" data-product="{{product.id}}"><i class="fa fa-heart"></i></button>
-         
-          <button class="btn btn-sm btn-danger disabled"><i class="fa fa-heart"></i></button>
           
 			  	<span class="float-right">
 			  		4.5/5
