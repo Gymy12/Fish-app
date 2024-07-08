@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.contrib.auth.password_validation import validate_password
 from django.http import HttpRequest
-from .models import CustomerUser, Gender
+from .models import CustomerUser, Gender, UserTypes
 
 
 def signin(request: HttpRequest):
@@ -61,13 +61,20 @@ def signup(request: HttpRequest):
             phone=phone,
             gender=gender,
             password=password,
+            user_type=UserTypes.objects.get(id=2),
         )
         if user is not None:
             login(request, user)
             return redirect("home")
         else:
             messages.error(request, "An error occurred")
-    return render(request, "register.html")
+    genders = Gender.objects.all()
+    print(genders)
+    return render(
+        request,
+        "register.html",
+        {"genders": genders},
+    )
 
 
 def signout(request: HttpRequest):
