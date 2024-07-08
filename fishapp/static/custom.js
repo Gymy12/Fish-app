@@ -97,6 +97,9 @@ $(document).ready(function () {
     var _productTitle = $(".product-title-" + _index).val();
     var _productPrice = $(".product-price-" + _index).text();
 
+    console.log("Quantity for product ID:", _productId, "is", _qty);
+    console.log("Image for product ID:", _productId, "is", _productImage);
+    console.log("Title for product ID:", _productId, "is", _productTitle);
     console.log("Price for product ID:", _productId, "is", _productPrice);
 
     if (_productPrice === "") {

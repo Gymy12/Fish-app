@@ -1,12 +1,13 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Category, Product, Quantity, Count, Banner, ProductAttribute
-from django.http import JsonResponse, HttpResponse, HttpRequest
-from django.db.models import Max, Min, Count, Avg
+from django.shortcuts import render
+from .models import Category, Product, Banner, ProductAttribute
+from django.http import JsonResponse, HttpRequest, HttpResponse
+from django.db.models import Max, Min
 from django.template.loader import render_to_string
-from django.db import models
+from Aquareach.credentials import PHONE_NUMBER
+
+from .payments import pay_and_push
 
 
-# Create your views here.
 def home(request: HttpRequest):
     banners = Banner.objects.all().order_by("-id")
     data = Product.objects.filter(is_featured=True).order_by("-id")
@@ -207,20 +208,22 @@ def update_cart_item(request: HttpRequest):
 
 def checkout(request: HttpRequest):
     total_amt = 0
-    print(request.session["cartdata"])
     if "cartdata" in request.session:
         for p_id, item in request.session["cartdata"].items():
             total_amt += int(item["qty"]) * float(item["price"])
-        print("Total Amount: ", total_amt)
-        return render(
-            request,
-            "checkout.html",
-            {
-                "cart_data": request.session["cartdata"],
-                "totalitems": len(request.session["cartdata"]),
-                "total_amt": total_amt,
-            },
-        )
+        # return render(
+        #     request,
+        #     "checkout.html",
+        #     {
+        #         "cart_data": request.session["cartdata"],
+        #         "totalitems": len(request.session["cartdata"]),
+        #         "total_amt": total_amt,
+        #     },
+        # )
+        res = pay_and_push(request, PHONE_NUMBER, total_amt)
+        print("MPESA: ", res.content.decode())
+        return res
+
     else:
         return render(
             request,
