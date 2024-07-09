@@ -1,0 +1,6 @@
+.history
+.vscode
+__pycache__
+.env
+**/migrations/[0-9]*.py
+*.sqlite3

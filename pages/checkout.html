@@ -1,0 +1,48 @@
+{% extends 'components/layout.html' %} {% load static %} {% block content %} {%
+comment %} Display this page with order id and order details such as bussiness
+number and the amount to be paid using order id as the account number {%
+endcomment %}
+
+<main class="container my-4">
+    <h3 class="my-4 border-bottom pb-1">Checkout</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Order Details</h4>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Order ID</th>
+                    <td>{{ order.id }}</td>
+                </tr>
+                <tr>
+                    <th>Amount</th>
+                    <td>Ksh. {{ order.total_amt }}</td>
+                </tr>
+                <tr>
+                    <th>Business Number</th>
+                    <td>{{ order.business_number }}</td>
+                </tr>
+                <tr>
+                    <th>Account Number</th>
+                    <td>{{ order.id }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h4>Payment Instructions</h4>
+            <p>Go to your M-Pesa menu</p>
+            <p>Select Lipa na M-Pesa</p>
+            <p>Select Paybill</p>
+            <p>Enter Business Number: {{ order.business_number }}</p>
+            <p>Enter Account Number: {{ order.id }}</p>
+            <p>Enter Amount: Ksh. {{ order.total_amt }}</p>
+            <p>Enter your M-Pesa PIN and Send</p>
+            <p>You will receive a confirmation SMS from M-Pesa</p>
+            <p>Click the button below to confirm payment</p>
+            <a href="/confirm-payment/{{ order.id }}" class="btn btn-primary"
+                >Confirm Payment</a
+            >
+        </div>
+    </div>
+</main>
+
+{% endblock %}
