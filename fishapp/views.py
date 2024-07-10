@@ -14,6 +14,14 @@ def home(request: HttpRequest):
     return render(request, "index.html", {"data": data, "banners": banners})
 
 
+def about(request: HttpRequest):
+    return render(request, "about.html")
+
+
+def contacts(request: HttpRequest):
+    return render(request, "contacts.html")
+
+
 def category_list(request: HttpRequest):
     data = Category.objects.all().order_by("-id")
     return render(request, "category_list.html", {"data": data})
