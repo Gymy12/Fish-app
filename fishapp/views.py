@@ -228,7 +228,9 @@ def checkout(request: HttpRequest):
         #         "total_amt": total_amt,
         #     },
         # )
-        res = pay_and_push(request, PHONE_NUMBER, total_amt)
+        
+        user_phone = request.user.phone
+        res = pay_and_push(request, user_phone, total_amt)
         print("MPESA: ", res.content.decode())
         return res
 

@@ -84,3 +84,41 @@ def signout(request: HttpRequest):
 
 def profile(request: HttpRequest):
     return render(request, "profile.html")
+
+
+def change_password(request: HttpRequest):
+    if request.method == "POST":
+        current_password = request.POST.get("current_password")
+        new_password = request.POST.get("new_password")
+        confirm_password = request.POST.get("confirm_password")
+        user = request.user
+        if user.check_password(current_password):
+            if new_password == confirm_password:
+                try:
+                    validate_password(new_password)
+                except ValidationError as e:
+                    messages.error(request, e)
+                    return render(request, "change_password.html")
+                user.set_password(new_password)
+                user.save()
+                login(request, user)
+                messages.success(request, "Password changed successfully")
+                return redirect("profile")
+            else:
+                messages.error(request, "Passwords do not match")
+                return render(request, "change_password.html")
+        else:
+            messages.error(request, "Invalid password")
+            return render(request, "change_password.html")
+    return render(request, "change_password.html")
+
+
+def update_profile(request: HttpRequest):
+    if request.method == "POST":
+        phone = request.POST.get("phone")
+
+        user = request.user
+        user.phone = phone
+        user.save()
+        messages.success(request, "Profile updated successfully")
+        return redirect("profile")
